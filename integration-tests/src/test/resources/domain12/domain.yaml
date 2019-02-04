@@ -7,4 +7,6 @@ configuredManagedServerCount: 4
 initialManagedServerReplicas: 2
 exposeAdminT3Channel: true
 exposeAdminNodePort: true
+
 configOverrides: sitconfigcm
+configOverridesFile: /integration-tests/src/test/resources/domain12/custom

@@ -4,9 +4,6 @@
 
 package oracle.kubernetes.operator;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import oracle.kubernetes.operator.utils.Domain;
 import oracle.kubernetes.operator.utils.ExecCommand;
 import oracle.kubernetes.operator.utils.ExecResult;
@@ -49,8 +46,12 @@ public class ITOperator extends BaseTest {
   private static final String domain3ForDelValueYamlFile = "domain_del_3.yaml";
   private static String domain9YamlFile = "domain9.yaml";
   private static String domain10YamlFile = "domain10.yaml";
-  private static String domain11YamlFile = "domain11.yaml";
-  private static String domain12YamlFile = "domain12.yaml";
+  private static String domain11YamlFile = "domain11/domain.yaml";
+  private static String domain11DomainScript =
+      "/integration-tests/src/test/resources/domain11/create-domain.py";
+  private static String domain12YamlFile = "domain12/domain.yaml";
+  private static String domain12DomainScript =
+      "/integration-tests/src/test/resources/domain12/create-domain.py";
 
   // property file used to configure constants for integration tests
   private static String appPropsFile = "OperatorIT.properties";
@@ -198,6 +199,7 @@ public class ITOperator extends BaseTest {
     }
     logger.info("SUCCESS - test2CreateAnotherDomainInDefaultNS");
   }
+
   /**
    * Create operator if its not running. Create domain with dynamic cluster using WDT and verify the
    * domain is started successfully. Verify cluster scaling by doing scale up for domain3 using WLDF
@@ -425,6 +427,7 @@ public class ITOperator extends BaseTest {
     }
     logger.info("SUCCESS - testACreateDomainApacheLB");
   }
+
   /**
    * Create operator and create domain with mostly default values from sample domain inputs, mainly
    * exposeAdminT3Channel and exposeAdminNodePort which are false by default and verify domain
@@ -533,6 +536,7 @@ public class ITOperator extends BaseTest {
     TestUtils.verifyAfterDeletion(domainDel2);
     logger.info("SUCCESS - testDeleteTwoDomains");
   }
+
   /**
    * Create Operator and create domain with listen address not set for admin server, t3 channel and
    * incorrect file for admin server log location Verify automatic situational config override works
@@ -551,19 +555,9 @@ public class ITOperator extends BaseTest {
     }
     Domain domain11 = null;
     boolean testCompletedSuccessfully = false;
-    String createDomainScriptDir =
-        BaseTest.getProjectRoot() + "/integration-tests/src/test/resources/domain-home-on-pv";
     try {
 
-      // cp py
-      Files.copy(
-          new File(createDomainScriptDir + "/create-domain.py").toPath(),
-          new File(createDomainScriptDir + "/create-domain.py.bak").toPath(),
-          StandardCopyOption.REPLACE_EXISTING);
-      Files.copy(
-          new File(createDomainScriptDir + "/create-domain-auto-sit-config.py").toPath(),
-          new File(createDomainScriptDir + "/create-domain.py").toPath(),
-          StandardCopyOption.REPLACE_EXISTING);
+      this.overrideCreateDomainScript(domain11DomainScript);
 
       domain11 = testDomainCreation(domain11YamlFile);
       domain11.verifyDomainCreated();
@@ -573,10 +567,7 @@ public class ITOperator extends BaseTest {
       testCompletedSuccessfully = true;
 
     } finally {
-      Files.copy(
-          new File(createDomainScriptDir + "/create-domain.py.bak").toPath(),
-          new File(createDomainScriptDir + "/create-domain.py").toPath(),
-          StandardCopyOption.REPLACE_EXISTING);
+      this.unoverrideCreateDomainScript();
       if (domain11 != null && (JENKINS || testCompletedSuccessfully)) {
         domain11.destroy();
       }
@@ -622,32 +613,19 @@ public class ITOperator extends BaseTest {
     }
     Domain domain12 = null;
     boolean testCompletedSuccessfully = false;
-    String createDomainScriptDir =
-        BaseTest.getProjectRoot() + "/integration-tests/src/test/resources/domain-home-on-pv";
     try {
 
-      // cp py
-      Files.copy(
-          new File(createDomainScriptDir + "/create-domain.py").toPath(),
-          new File(createDomainScriptDir + "/create-domain.py.bak").toPath(),
-          StandardCopyOption.REPLACE_EXISTING);
-      Files.copy(
-          new File(createDomainScriptDir + "/create-domain-custom-sit-config.py").toPath(),
-          new File(createDomainScriptDir + "/create-domain.py").toPath(),
-          StandardCopyOption.REPLACE_EXISTING);
+      this.overrideCreateDomainScript(domain12DomainScript);
 
       domain12 = testDomainCreation(domain12YamlFile);
       domain12.verifyDomainCreated();
       testBasicUseCases(domain12);
       testAdminT3ChannelWithJMS(domain12);
-      // testAdvancedUseCasesForADomain(operator1, domain11);
+      // testAdvancedUseCasesForADomain(operator1, domain12);
       testCompletedSuccessfully = true;
 
     } finally {
-      Files.copy(
-          new File(createDomainScriptDir + "/create-domain.py.bak").toPath(),
-          new File(createDomainScriptDir + "/create-domain.py").toPath(),
-          StandardCopyOption.REPLACE_EXISTING);
+      this.unoverrideCreateDomainScript();
       if (domain12 != null && (JENKINS || testCompletedSuccessfully)) {
         domain12.destroy();
       }
