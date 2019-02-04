@@ -52,6 +52,9 @@ public class ITOperator extends BaseTest {
   private static String domain12YamlFile = "domain12/domain.yaml";
   private static String domain12DomainScript =
       "/integration-tests/src/test/resources/domain12/create-domain.py";
+  private static String domain13YamlFile = "domain13/domain.yaml";
+  private static String domain13DomainScript =
+      "/integration-tests/src/test/resources/domain13/create-domain.py";
 
   // property file used to configure constants for integration tests
   private static String appPropsFile = "OperatorIT.properties";
@@ -631,6 +634,36 @@ public class ITOperator extends BaseTest {
       }
     }
     logger.info("SUCCESS - testCustomSitConfigOverrides");
+  }
+
+  @Test
+  public void testIntrospectorSitConfigOverrides() throws Exception {
+    Assume.assumeFalse(QUICKTEST);
+    logTestBegin("testIntrospectorSitConfigOverrides");
+
+    if (operator1 == null) {
+      operator1 = TestUtils.createOperator(op1YamlFile);
+    }
+    Domain domain13 = null;
+    boolean testCompletedSuccessfully = false;
+    try {
+
+      this.overrideCreateDomainScript(domain13DomainScript);
+
+      domain13 = testDomainCreation(domain13YamlFile);
+      domain13.verifyDomainCreated();
+      // TODO: This one is not working yet
+      // testBasicUseCases(domain13);
+      // testAdvancedUseCasesForADomain(operator1, domain13);
+      testCompletedSuccessfully = true;
+
+    } finally {
+      this.unoverrideCreateDomainScript();
+      if (domain13 != null && (JENKINS || testCompletedSuccessfully)) {
+        domain13.destroy();
+      }
+    }
+    logger.info("SUCCESS - testIntrospectorSitConfigOverrides");
   }
 
   private Domain testAdvancedUseCasesForADomain(Operator operator, Domain domain) throws Exception {
