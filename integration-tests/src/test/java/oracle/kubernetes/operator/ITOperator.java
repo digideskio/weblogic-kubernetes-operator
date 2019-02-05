@@ -652,9 +652,7 @@ public class ITOperator extends BaseTest {
 
       domain13 = testDomainCreation(domain13YamlFile);
       domain13.verifyDomainCreated();
-      // TODO: This one is not working yet
-      // testBasicUseCases(domain13);
-      // testAdvancedUseCasesForADomain(operator1, domain13);
+      testAdminServerExternalService(domain13);
       testCompletedSuccessfully = true;
 
     } finally {

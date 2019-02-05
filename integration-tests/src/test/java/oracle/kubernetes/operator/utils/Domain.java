@@ -197,6 +197,7 @@ public class Domain {
       logger.info(additionalManagedServer + " is not running, which is expected behaviour");
     }
   }
+
   /**
    * verify nodeport by accessing admin REST endpoint
    *
