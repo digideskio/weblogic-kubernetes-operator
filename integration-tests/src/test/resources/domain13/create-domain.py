@@ -61,32 +61,32 @@ set('PublicAddress', 'junkvalue')
 set('ListenAddress', '%s-%s' % (domain_uid, admin_server_name_svc))
 set('ListenPort', t3_channel_port)
 
-# cd('/Servers/%s' % admin_server_name)
-# create('T3Channel1', 'NetworkAccessPoint')
-# cd('/Servers/%s/NetworkAccessPoints/T3Channel1' % admin_server_name)
-# set('PublicPort', t3_channel_port)
-# set('PublicAddress', 'junkvalue')
-# # Give incorrect listenaddress, introspector overrides with sit-config
-# set('ListenAddress', '%s-%s' % (domain_uid, admin_server_name_svc))
-# set('ListenPort', t3_channel_port)
-# 
-# cd('/Servers/%s' % admin_server_name)
-# create('T3Channel2', 'NetworkAccessPoint')
-# cd('/Servers/%s/NetworkAccessPoints/T3Channel2' % admin_server_name)
-# set('PublicPort', t3_channel_port)
-# set('PublicAddress', 'junkvalue')
-# # Give incorrect listenaddress, introspector overrides with sit-config
-# set('ListenAddress', '%s-%s' % (domain_uid, admin_server_name_svc))
-# set('ListenPort', t3_channel_port)
-# 
-# cd('/Servers/%s' % admin_server_name)
-# create('T3Channel3', 'NetworkAccessPoint')
-# cd('/Servers/%s/NetworkAccessPoints/T3Channel3' % admin_server_name)
-# set('PublicPort', t3_channel_port)
-# set('PublicAddress', 'junkvalue')
-# # Give incorrect listenaddress, introspector overrides with sit-config
-# set('ListenAddress', '%s-%s' % (domain_uid, admin_server_name_svc))
-# set('ListenPort', t3_channel_port)
+cd('/Servers/%s' % admin_server_name)
+create('T3Channel1', 'NetworkAccessPoint')
+cd('/Servers/%s/NetworkAccessPoints/T3Channel1' % admin_server_name)
+set('PublicPort', 40012)
+set('PublicAddress', 'junkvalue')
+# Give incorrect listenaddress, introspector overrides with sit-config
+set('ListenAddress', '%s-%s' % (domain_uid, admin_server_name_svc))
+set('ListenPort', 40012)
+
+cd('/Servers/%s' % admin_server_name)
+create('T3Channel2', 'NetworkAccessPoint')
+cd('/Servers/%s/NetworkAccessPoints/T3Channel2' % admin_server_name)
+set('PublicPort', 40013)
+set('PublicAddress', 'junkvalue')
+# Give incorrect listenaddress, introspector overrides with sit-config
+set('ListenAddress', '%s-%s' % (domain_uid, admin_server_name_svc))
+set('ListenPort', 40013)
+
+cd('/Servers/%s' % admin_server_name)
+create('T3Channel3', 'NetworkAccessPoint')
+cd('/Servers/%s/NetworkAccessPoints/T3Channel3' % admin_server_name)
+set('PublicPort', 40014)
+set('PublicAddress', 'junkvalue')
+# Give incorrect listenaddress, introspector overrides with sit-config
+set('ListenAddress', '%s-%s' % (domain_uid, admin_server_name_svc))
+set('ListenPort', 40014)
 
 cd('/Servers/%s' % admin_server_name)
 create(admin_server_name,'Log')

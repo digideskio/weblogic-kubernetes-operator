@@ -653,6 +653,7 @@ public class ITOperator extends BaseTest {
       domain13 = testDomainCreation(domain13YamlFile);
       domain13.verifyDomainCreated();
       testAdminServerExternalService(domain13);
+      testAdminT3ChannelWithJMS(domain13);
       testCompletedSuccessfully = true;
 
     } finally {

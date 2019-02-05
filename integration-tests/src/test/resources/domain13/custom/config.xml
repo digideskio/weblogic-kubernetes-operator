@@ -12,24 +12,25 @@
     <max-message-size f:combine-mode="replace">78787878</max-message-size>
     <network-access-point>
       <name>T3Channel</name>
-      <public-address f:combine-mode="replace">domain13-admin-server</public-address>
+      <public-address f:combine-mode="replace">${secret:domain13-t3publicaddress.hostname}</public-address>
     </network-access-point>
     <network-access-point>
       <name>T3Channel1</name>
-      <public-address f:combine-mode="replace">domain13-admin-server</public-address>
+      <public-address f:combine-mode="replace">${secret:domain13-t3publicaddress.hostname}</public-address>
       <public-port f:combine-mode="replace">40012</public-port>
       <listen-address f:combine-mode="replace">domain13-admin-server</listen-address>
     </network-access-point>
     <network-access-point>
       <name>T3Channel2</name>
-      <public-address f:combine-mode="replace">domain13-admin-server</public-address>
+      <public-address f:combine-mode="replace">${secret:domain13-t3publicaddress.hostname}</public-address>
       <public-port f:combine-mode="replace">40013</public-port>
       <listen-address f:combine-mode="replace">domain13-admin-server</listen-address>
     </network-access-point>
     <network-access-point>
       <name>T3Channel3</name>
-      <public-address f:combine-mode="add">domain13-admin-server</public-address>
-      <public-port f:combine-mode="add">40014</public-port>
+      <public-address f:combine-mode="replace">${secret:domain13-t3publicaddress.hostname}</public-address>
+      <public-port f:combine-mode="replace">40014</public-port>
+      <listen-address f:combine-mode="replace">domain13-admin-server</listen-address>
     </network-access-point>
   </server>
   <server>
@@ -53,6 +54,6 @@
     <log f:combine-mode="add">
       <file-name f:combine-mode="add">/shared/logs/managed-server${id}.log</file-name>
     </log>
-    <listen-address f:combine-mode="add">domain13-managed-server${id}</listen-address>
+    <listen-address f:combine-mode="replace">domain13-managed-server${id}</listen-address>
   </server-template>
 </domain>
