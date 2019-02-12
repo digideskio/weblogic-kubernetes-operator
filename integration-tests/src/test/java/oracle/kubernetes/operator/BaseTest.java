@@ -188,7 +188,10 @@ public class BaseTest {
    * 
    */
   public void testClusterChannels(Domain domain) throws Exception {
-	  
+	  logger.info("Inside testClusterChannels");
+	  TestUtils.checkHasServiceChannelPort("domain1-cluster-cluster-1", "TCP", 30012);
+	  TestUtils.checkHasServiceChannelPort("domain1-managed-server1", "TCP", 30012);
+	  logger.info("Done - testClusterChannels");
   }
   
   /**
