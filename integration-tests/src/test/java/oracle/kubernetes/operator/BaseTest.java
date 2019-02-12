@@ -185,6 +185,13 @@ public class BaseTest {
   }
 
   /**
+   * 
+   */
+  public void testClusterChannels(Domain domain) throws Exception {
+	  
+  }
+  
+  /**
    * Verify t3channel port by a JMS connection.
    *
    * @throws Exception

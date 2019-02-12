@@ -648,6 +648,7 @@ public class ITOperator extends BaseTest {
 
   private void testBasicUseCases(Domain domain) throws Exception {
     testAdminT3Channel(domain);
+    testClusterChannels(domain);
     testAdminServerExternalService(domain);
   }
 }
