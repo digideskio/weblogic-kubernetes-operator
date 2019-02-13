@@ -210,26 +210,25 @@ public class TestUtils {
   }
 
   /**
-   * 
-   * NAME                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)
-   * domain1-cluster-cluster-1       ClusterIP   10.105.146.61   <none>        30032/TCP,8001/TCP
-   * domain1-managed-server1         ClusterIP   None            <none>        30032/TCP,8001/TCP
-   * 
+   * NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) domain1-cluster-cluster-1 ClusterIP 10.105.146.61
+   * <none> 30032/TCP,8001/TCP domain1-managed-server1 ClusterIP None <none> 30032/TCP,8001/TCP
+   *
    * @param service
    * @param protocol
    * @param port
    * @return
    * @throws Exception
    */
-  public static boolean checkHasServiceChannelPort(String service, String protocol, int port) throws Exception {
-	  StringBuffer cmd = new StringBuffer("kubectl get services ");
-	  ExecResult result = ExecCommand.exec(cmd.toString());
-	  if (result.exitValue() == 0 && result.stdout().contains(service)) {
-		  if (result.stdout().contains(port + "/" + protocol) ) {
-			  return true;
-		  }
-	  }
-	  return false;
+  public static boolean checkHasServiceChannelPort(String service, String protocol, int port)
+      throws Exception {
+    StringBuffer cmd = new StringBuffer("kubectl get services ");
+    ExecResult result = ExecCommand.exec(cmd.toString());
+    if (result.exitValue() == 0 && result.stdout().contains(service)) {
+      if (result.stdout().contains(port + "/" + protocol)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**

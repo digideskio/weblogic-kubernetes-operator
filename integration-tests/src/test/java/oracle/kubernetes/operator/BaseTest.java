@@ -185,16 +185,6 @@ public class BaseTest {
   }
 
   /**
-   * 
-   */
-  public void testClusterChannels(Domain domain) throws Exception {
-	  logger.info("Inside testClusterChannels");
-	  TestUtils.checkHasServiceChannelPort("domain1-cluster-cluster-1", "TCP", 30012);
-	  TestUtils.checkHasServiceChannelPort("domain1-managed-server1", "TCP", 30012);
-	  logger.info("Done - testClusterChannels");
-  }
-  
-  /**
    * Verify t3channel port by a JMS connection.
    *
    * @throws Exception
@@ -219,8 +209,18 @@ public class BaseTest {
    */
   public void testDomainLifecyle(Operator operator, Domain domain) throws Exception {
     logger.info("Inside testDomainLifecyle");
+
+    if (TestUtils.checkHasServiceChannelPort("domain1-cluster-cluster-1", "TCP", 30012)) {
+      throw new RuntimeException("FAILURE: !! CLUSTER CHANNEL CHECK ");
+    }
+
     domain.destroy();
     domain.create();
+
+    if (TestUtils.checkHasServiceChannelPort("domain1-cluster-cluster-1", "TCP", 30012)) {
+      throw new RuntimeException("FAILURE: !! CLUSTER CHANNEL CHECK ");
+    }
+
     operator.verifyExternalRESTService();
     operator.verifyDomainExists(domain.getDomainUid());
     domain.verifyDomainCreated();
