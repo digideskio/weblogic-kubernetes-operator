@@ -245,6 +245,19 @@ public class Domain {
   }
 
   /**
+   * @param i
+   * @param string
+   * @throws Exception
+   */
+  public void verifyHasServiceChannelPort(String protocol, int port) throws Exception {
+
+    if (TestUtils.checkHasServiceChannelPort(
+        this.getDomainUid() + "-cluster-" + domain.ge, "TCP", 30012)) {
+      throw new RuntimeException("FAILURE: !! CLUSTER CHANNEL CHECK ");
+    }
+  }
+
+  /**
    * deploy webapp using nodehost and nodeport
    *
    * @throws Exception

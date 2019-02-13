@@ -201,6 +201,7 @@ public class BaseTest {
     c.close();
     logger.info("Done - testAdminT3ChannelWithJMS");
   }
+
   /**
    * Restarting the domain should not have any impact on Operator managing the domain, web app load
    * balancing and node port service
@@ -210,16 +211,18 @@ public class BaseTest {
   public void testDomainLifecyle(Operator operator, Domain domain) throws Exception {
     logger.info("Inside testDomainLifecyle");
 
-    if (TestUtils.checkHasServiceChannelPort("domain1-cluster-cluster-1", "TCP", 30012)) {
-      throw new RuntimeException("FAILURE: !! CLUSTER CHANNEL CHECK ");
-    }
+    /*
+     *
+     */
+    domain.verifyHasServiceChannelPort("TCP", 30012);
 
     domain.destroy();
     domain.create();
 
-    if (TestUtils.checkHasServiceChannelPort("domain1-cluster-cluster-1", "TCP", 30012)) {
-      throw new RuntimeException("FAILURE: !! CLUSTER CHANNEL CHECK ");
-    }
+    /*
+     *
+     */
+    domain.verifyHasServiceChannelPort("TCP", 30012);
 
     operator.verifyExternalRESTService();
     operator.verifyDomainExists(domain.getDomainUid());
