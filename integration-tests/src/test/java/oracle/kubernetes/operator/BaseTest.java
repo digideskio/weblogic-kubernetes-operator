@@ -210,25 +210,14 @@ public class BaseTest {
    */
   public void testDomainLifecyle(Operator operator, Domain domain) throws Exception {
     logger.info("Inside testDomainLifecyle");
-
-    /*
-     *
-     */
-    // domain.verifyNotClusterServiceChannelPort("TCP", 8011);
-
     domain.destroy();
     domain.create();
-
-    /*
-     *
-     */
+    operator.verifyExternalRESTService();
+    operator.verifyDomainExists(domain.getDomainUid());
+    domain.verifyDomainCreated();
+    domain.verifyWebAppLoadBalancing(TESTWEBAPP);
+    domain.verifyAdminServerExternalService(getUsername(), getPassword());
     domain.verifyHasClusterServiceChannelPort("TCP", 8011);
-
-    // operator.verifyExternalRESTService();
-    // operator.verifyDomainExists(domain.getDomainUid());
-    // domain.verifyDomainCreated();
-    // domain.verifyWebAppLoadBalancing(TESTWEBAPP);
-    // domain.verifyAdminServerExternalService(getUsername(), getPassword());
     logger.info("Done - testDomainLifecyle");
   }
 

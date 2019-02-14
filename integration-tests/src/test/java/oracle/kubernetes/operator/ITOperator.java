@@ -634,11 +634,11 @@ public class ITOperator extends BaseTest {
   }
 
   private Domain testAdvancedUseCasesForADomain(Operator operator, Domain domain) throws Exception {
-    // if (!SMOKETEST) {
-    //   testClusterScaling(operator, domain);
-    testDomainLifecyle(operator, domain);
-    //   testOperatorLifecycle(operator, domain);
-    // }
+    if (!SMOKETEST) {
+      testClusterScaling(operator, domain);
+      testDomainLifecyle(operator, domain);
+      testOperatorLifecycle(operator, domain);
+    }
     return domain;
   }
 
@@ -647,7 +647,7 @@ public class ITOperator extends BaseTest {
   }
 
   private void testBasicUseCases(Domain domain) throws Exception {
-    // testAdminT3Channel(domain);
-    // testAdminServerExternalService(domain);
+    testAdminT3Channel(domain);
+    testAdminServerExternalService(domain);
   }
 }
