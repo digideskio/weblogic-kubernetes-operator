@@ -223,11 +223,26 @@ public class TestUtils {
       throws Exception {
     StringBuffer cmd = new StringBuffer("kubectl get services ");
     ExecResult result = ExecCommand.exec(cmd.toString());
-    if (result.exitValue() == 0 && result.stdout().contains(service)) {
-      if (result.stdout().contains(port + "/" + protocol)) {
+    // int exitval =
+    String stdout = result.stdout();
+    String stdoutlines[] = stdout.split("\\r?\\n");
+    logger.warning(" checkHasServiceChannelPort: service: " + service);
+    logger.warning(" checkHasServiceChannelPort: protocol: " + protocol);
+    logger.warning(" checkHasServiceChannelPort: port: " + port);
+    logger.warning(" checkHasServiceChannelPort: ppcol: " + port + "/" + protocol);
+    logger.warning(" checkHasServiceChannelPort: output: ");
+    logger.warning(stdout);
+    for (String stdoutline : stdoutlines) {
+      logger.warning(stdoutline);
+    }
+    if (result.exitValue() == 0 && stdout.contains(service)) {
+      logger.warning(" -> checkHasServiceChannelPort: has service: YES ");
+      if (stdout.contains(port + "/" + protocol)) {
+        logger.warning(" -> checkHasServiceChannelPort: has port: YES ");
         return true;
       }
     }
+    logger.warning(" -> checkHasServiceChannelPort: has neither: YES ");
     return false;
   }
 
