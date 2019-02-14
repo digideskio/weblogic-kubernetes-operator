@@ -245,8 +245,8 @@ public class Domain {
   }
 
   /**
-   * @param i
-   * @param string
+   * @param protocol
+   * @param port
    * @throws Exception
    */
   public void verifyHasServiceChannelPort(String protocol, int port) throws Exception {
