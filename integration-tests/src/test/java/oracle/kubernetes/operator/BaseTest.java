@@ -214,7 +214,7 @@ public class BaseTest {
     /*
      *
      */
-    domain.verifyHasServiceChannelPort("TCP", 30012);
+    // domain.verifyNotClusterServiceChannelPort("TCP", 8011);
 
     domain.destroy();
     domain.create();
@@ -222,13 +222,13 @@ public class BaseTest {
     /*
      *
      */
-    domain.verifyHasServiceChannelPort("TCP", 30012);
+    domain.verifyHasClusterServiceChannelPort("TCP", 8011);
 
-    operator.verifyExternalRESTService();
-    operator.verifyDomainExists(domain.getDomainUid());
-    domain.verifyDomainCreated();
-    domain.verifyWebAppLoadBalancing(TESTWEBAPP);
-    domain.verifyAdminServerExternalService(getUsername(), getPassword());
+    // operator.verifyExternalRESTService();
+    // operator.verifyDomainExists(domain.getDomainUid());
+    // domain.verifyDomainCreated();
+    // domain.verifyWebAppLoadBalancing(TESTWEBAPP);
+    // domain.verifyAdminServerExternalService(getUsername(), getPassword());
     logger.info("Done - testDomainLifecyle");
   }
 

@@ -245,15 +245,32 @@ public class Domain {
   }
 
   /**
+   * Verify that we have the channel set for the cluster
+   *
    * @param protocol
    * @param port
    * @throws Exception
    */
-  public void verifyHasServiceChannelPort(String protocol, int port) throws Exception {
-
+  public void verifyHasClusterServiceChannelPort(String protocol, int port) throws Exception {
     if (TestUtils.checkHasServiceChannelPort(
-        this.getDomainUid() + "-cluster-" + domain.ge, "TCP", 30012)) {
-      throw new RuntimeException("FAILURE: !! CLUSTER CHANNEL CHECK ");
+        this.getDomainUid() + "-cluster-" + this.clusterName, protocol, port)) {
+      throw new RuntimeException(
+          "FAILURE: !! CLUSTER CHANNEL CHECK verifyHasClusterServiceChannelPort ");
+    }
+  }
+
+  /**
+   * Verify that we have do not have the channel set for the cluster
+   *
+   * @param protocol
+   * @param port
+   * @throws Exception
+   */
+  public void verifyNotClusterServiceChannelPort(String protocol, int port) throws Exception {
+    if (!TestUtils.checkHasServiceChannelPort(
+        this.getDomainUid() + "-cluster-" + this.clusterName, protocol, port)) {
+      throw new RuntimeException(
+          "FAILURE: !! CLUSTER CHANNEL CHECK verifyNotClusterServiceChannelPort ");
     }
   }
 
