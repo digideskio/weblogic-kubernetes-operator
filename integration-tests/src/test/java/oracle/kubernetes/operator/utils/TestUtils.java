@@ -214,14 +214,17 @@ public class TestUtils {
    * <none> 30032/TCP,8001/TCP domain1-managed-server1 ClusterIP None <none> 30032/TCP,8001/TCP
    *
    * @param service
+   * @param namespace
    * @param protocol
    * @param port
    * @return
    * @throws Exception
    */
-  public static boolean checkHasServiceChannelPort(String service, String protocol, int port)
-      throws Exception {
+  public static boolean checkHasServiceChannelPort(
+      String service, String namespace, String protocol, int port) throws Exception {
     StringBuffer cmd = new StringBuffer("kubectl get services ");
+    cmd.append(" -n ").append(namespace);
+
     ExecResult result = ExecCommand.exec(cmd.toString());
     String stdout = result.stdout();
     String stdoutlines[] = stdout.split("\\r?\\n");
